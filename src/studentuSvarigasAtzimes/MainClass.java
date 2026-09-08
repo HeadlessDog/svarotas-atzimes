@@ -1,5 +1,6 @@
 package studentuSvarigasAtzimes;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class MainClass {
@@ -20,10 +21,13 @@ public class MainClass {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
+		DecimalFormat df = new DecimalFormat("0.00");
+		
 		int pdSk = 0;
 		int sklSk = 0;
 		int[] pdWg;
 		int[][] pdRez;
+		double[] finalRez;
 		String[] sklName;
 		
 		System.out.println("Jūs esat pieslēdiez gala atzīmju kalkulatoram.\n");
@@ -42,6 +46,7 @@ public class MainClass {
 				System.out.println("Nedarīga vērtība!");
 		}while(!validInt);
 		sklName = new String[sklSk];
+		finalRez = new double[sklSk];
 		
 		//Testu skaita ievade ar validāciju
 		do {
@@ -128,6 +133,7 @@ public class MainClass {
 			}while(!validInt);
 		}
 		//Skolēnu vārdu ievade ar blank validāciju
+		int maxNameLength =0;
 		sc.nextLine();
 		boolean validString;
 		for(int j=0;j<sklSk;j++) {
@@ -140,6 +146,7 @@ public class MainClass {
 					System.out.println("Nedarīga vērtība!");
 				else {
 					sklName[j] = tempInput; 
+					maxNameLength = Math.max(maxNameLength, tempInput.length());
 				}
 			}while(!validString);
 		}
@@ -166,6 +173,32 @@ public class MainClass {
 				}while(!validInt);
 				
 			}
+		}
+		
+		//Izrēķina rezultātus
+		for(int i=0;i<sklSk;i++)
+		{
+			double sum=0;
+			for(int j=0; j<pdSk;j++)
+				sum += (double)pdRez[i][j]*((double)pdWg[j]/100);
+			finalRez[i] = sum;
+		}
+		
+		//Gala rezultātu tabulas izvade
+		for(int i=0;i<maxNameLength+1;i++)
+			System.out.print(" ");
+		for(int i=0;i<pdSk;i++)
+			System.out.printf("%-17s", "Tests "+(i+1)+". ("+pdWg[i]+"%) ");
+		
+		System.out.println("Gala rez.");
+		for(int i=0;i<sklSk;i++)
+		{
+			System.out.print(sklName[i]+": ");
+			for(int j=0;j<maxNameLength-sklName[i].length();j++)
+				System.out.print(" ");
+			for(int j=0;j<pdSk;j++)
+				System.out.printf("%-17s", pdRez[i][j]);
+			System.out.println(df.format(finalRez[i]));
 		}
 		
 		
