@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class MainClass {
 	
+	//Funkcija kas pārbauda vai ievadītais ir integer un atgriež true or false
 	public static boolean isInteger(String s, int radix) {
 	    if(s.isEmpty()) return false;
 	    for(int i = 0; i < s.length(); i++) {
@@ -27,6 +28,7 @@ public class MainClass {
 		
 		System.out.println("Jūs esat pieslēdiez gala atzīmju kalkulatoram.\n");
 		boolean validInt;
+		//Skolēnu skaita ievade ar validāciju
 		do {
 			System.out.println("Ievadiet skolēnu skaitu: ");
 			String tempInput = sc.next();
@@ -41,6 +43,7 @@ public class MainClass {
 		}while(!validInt);
 		sklName = new String[sklSk];
 		
+		//Testu skaita ievade ar validāciju
 		do {
 			System.out.println("Ievadiet pārbaudes darbu/test/eksāmenu skaitu katram skolēnam: ");
 			String tempInput = sc.next();
@@ -56,6 +59,7 @@ public class MainClass {
 		pdWg = new int[pdSk];
 		pdRez = new int[sklSk][pdSk];
 		
+		//Visu testu smagumu ievade ar validāciju
 		int totalPercent =0;
 		for(int j=0;j<pdSk;j++) {
 			do {
@@ -80,12 +84,14 @@ public class MainClass {
 			}while(!validInt);
 		}
 		
+		//Summatīvo procentu pārbaudes cikls
 		while(totalPercent != 100)
 		{
 			System.out.println("Smagumi nesaskaitās uz 100, izvēlieties testu kura smagumu izmainīt.\n");
 			for(int i=0;i<pdSk;i++)
 				System.out.println((i+1)+". tests - "+pdWg[i]+"%");
 			
+			//Testa izvēle ar validāciju
 			int currTest = -1;
 			do {
 				String tempInput = sc.next();
@@ -98,7 +104,7 @@ public class MainClass {
 				if(!validInt)
 					System.out.println("Nedarīga vērtība!");
 			}while(!validInt);
-			
+			//Jauno procentu ievadīšana ar validāciju
 			do {
 				System.out.println("Ievadiet "+(currTest+1)+". testa smagumu %:\n"
 						+ "(visu testu smagumam jāsummējās uz 100%)\n"
@@ -121,6 +127,23 @@ public class MainClass {
 				}
 			}while(!validInt);
 		}
+		//Skolēnu vārdu ievade ar blank validāciju
+		sc.nextLine();
+		boolean validString;
+		for(int j=0;j<sklSk;j++) {
+			do {
+				System.out.println("Ievadiet "+(j+1)+". skolēna vārdu");
+				String tempInput = sc.nextLine();	
+				
+				validString = !tempInput.isBlank();
+				if(!validString)
+					System.out.println("Nedarīga vērtība!");
+				else {
+					sklName[j] = tempInput; 
+				}
+			}while(!validString);
+		}
+		
 		
 		
 		sc.close();
