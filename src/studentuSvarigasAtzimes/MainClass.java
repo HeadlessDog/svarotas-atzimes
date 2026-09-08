@@ -19,10 +19,10 @@ public class MainClass {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		int pdSk;
+		int pdSk = 0;
 		int sklSk = 0;
 		int[] pdWg;
-		int[] pdRez;
+		int[][] pdRez;
 		String[] sklName;
 		
 		System.out.println("Jūs esat pieslēdiez gala atzīmju kalkulatoram.\n");
@@ -39,6 +39,49 @@ public class MainClass {
 			if(!validInt)
 				System.out.println("Nedarīga vērtība!");
 		}while(!validInt);
+		sklName = new String[sklSk];
+		
+		do {
+			System.out.println("Ievadiet pārbaudes darbu/test/eksāmenu skaitu katram skolēnam: ");
+			String tempInput = sc.next();
+			
+			if(isInteger(tempInput, 10))
+				pdSk = Integer.parseInt(tempInput);
+			
+			validInt = (pdSk < 1 || pdSk > 20) ? false : true;
+				
+			if(!validInt)
+				System.out.println("Nedarīga vērtība!");
+		}while(!validInt);
+		pdWg = new int[pdSk];
+		pdRez = new int[sklSk][pdSk];
+		
+		int totalPercent =0;
+		for(int j=0;j<pdSk;j++) {
+			do {
+				System.out.println("Ievadiet "+(j+1)+". testa smagumu %:\n"
+						+ "(visu testu smagumam jāsummējās uz 100%)\n"
+						+ "(minmālais smagums ir 5%)\n"
+						+ "(vērtībai jābūt veselai)");
+				String tempInput = sc.next();
+				
+				int currPercent = 0;
+				if(isInteger(tempInput, 10))
+					currPercent = Integer.parseInt(tempInput);
+				
+				validInt = ((currPercent < 5 || currPercent > 100) || (pdSk > 1 && currPercent == 100)) ? false : true;
+					
+				if(!validInt)
+					System.out.println("Nedarīga vērtība!");
+				else {
+					totalPercent += currPercent;
+					pdWg[j] = currPercent;
+				}
+			}while(!validInt);
+		}
+		
+		
+		
 		
 		sc.close();
 	}
