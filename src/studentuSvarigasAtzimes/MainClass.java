@@ -144,6 +144,29 @@ public class MainClass {
 			}while(!validString);
 		}
 		
+		//Rezultātu ievade
+		for(int i=0;i<sklSk;i++)
+		{
+			for(int j=0;j<pdSk;j++)
+			{
+				System.out.println("Ievadi skolēna: "+sklName[i]+" atzīmi par "+(j+1)+". testu:\n"
+						+ "(svars "+pdWg[j]+")");
+				
+				pdRez[i][j] = 0;
+				do {
+					String tempInput = sc.next();
+					
+					if(isInteger(tempInput, 10))
+						pdRez[i][j] = Integer.parseInt(tempInput);
+					
+					validInt = (pdRez[i][j] < 1 || pdRez[i][j] > 10) ? false : true;
+						
+					if(!validInt)
+						System.out.println("Nedarīga vērtība!");
+				}while(!validInt);
+				
+			}
+		}
 		
 		
 		sc.close();
