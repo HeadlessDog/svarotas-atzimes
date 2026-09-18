@@ -24,7 +24,7 @@ public class Method_class {
 			int sklSk =0;
 				do {
 					System.out.println("Ievadiet skolēnu skaitu: ");
-					String tempInput = sc.next();
+					String tempInput = sc.nextLine();
 					
 					if(isInteger(tempInput, 10))
 						sklSk = Integer.parseInt(tempInput);
@@ -42,7 +42,7 @@ public class Method_class {
 			int pdSk =0;
 				do {
 					System.out.println("Ievadiet pārbaudes darbu/test/eksāmenu skaitu katram skolēnam: ");
-					String tempInput = sc.next();
+					String tempInput = sc.nextLine();
 					
 					if(isInteger(tempInput, 10))
 						pdSk = Integer.parseInt(tempInput);
@@ -64,7 +64,7 @@ public class Method_class {
 								+ "(visu testu smagumam jāsummējās uz 100%)\n"
 								+ "(minmālais smagums ir 5%)\n"
 								+ "(vērtībai jābūt veselai)");
-						String tempInput = sc.next();
+						String tempInput = sc.nextLine();
 						
 						int currPercent = 0;
 						if(isInteger(tempInput, 10))
@@ -91,7 +91,7 @@ public class Method_class {
 					//Testa izvēle ar validāciju
 					int currTest = -1;
 					do {
-						String tempInput = sc.next();
+						String tempInput = sc.nextLine();
 						
 						if(isInteger(tempInput, 10))
 							currTest = Integer.parseInt(tempInput)-1;
@@ -107,7 +107,7 @@ public class Method_class {
 								+ "(visu testu smagumam jāsummējās uz 100%)\n"
 								+ "(minmālais smagums ir 5%)\n"
 								+ "(vērtībai jābūt veselai)");
-						String tempInput = sc.next();
+						String tempInput = sc.nextLine();
 						
 						int currPercent = 0;
 						if(isInteger(tempInput, 10))
@@ -129,7 +129,7 @@ public class Method_class {
 		//Skolēnu vārdu ievade ar blank validāciju
 		public static int nameEntry(int sklSk, String[] sklName) {
 			int maxNameLength =0;
-			sc.nextLine();
+			
 			boolean validString;
 			for(int j=0;j<sklSk;j++) {
 				do {
@@ -159,7 +159,7 @@ public class Method_class {
 					
 					pdRez[i][j] = 0;
 					do {
-						String tempInput = sc.next();
+						String tempInput = sc.nextLine();
 						
 						if(isInteger(tempInput, 10))
 							pdRez[i][j] = Integer.parseInt(tempInput);

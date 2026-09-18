@@ -2,6 +2,9 @@ package studentuSvarigasAtzimes;
 
 import java.text.DecimalFormat;
 import studentuSvarigasAtzimes.Method_class;
+
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class MainClass {
@@ -13,14 +16,14 @@ public class MainClass {
 		
 		int pdSk = 0;
 		int sklSk = 0;
-		int[] pdWg;
-		int[][] pdRez;
-		double[] finalRez;
-		String[] sklName;
-		String izvele;
+		int[] pdWg = null;
+		int[][] pdRez = null;
+		double[] finalRez = null;
+		String[] sklName = null;
+		String izvele = null;
 		
 		boolean validInt;
-		int maxNameLength;
+		int maxNameLength = 0;
 		
 		do {
 			System.out.println("0 - Iziet\n"
@@ -32,12 +35,13 @@ public class MainClass {
 			+ "6 - Saglabāt teksta datnē");
 			
 			do {
-				izvele = sc.next();
+				int tempInt = 0;
+				izvele = sc.nextLine();
 				
 				if(Method_class.isInteger(izvele, 10))
-					sklSk = Integer.parseInt(izvele);
+					tempInt = Integer.parseInt(izvele);
 				
-				validInt = (sklSk < 1 || sklSk > 100000) ? false : true;
+				validInt = (tempInt < 0 || tempInt > 100000) ? false : true;
 					
 				if(!validInt)
 					System.out.println("Nedarīga vērtība!");
@@ -49,31 +53,54 @@ public class MainClass {
 				sklSk = Method_class.skolSk();
 				sklName = new String[sklSk];
 				finalRez = new double[sklSk];
+				
+				if(pdSk > 0) {
+					pdRez = new int[sklSk][pdSk];
+				}
 				break;
 			case "2":
-				maxNameLength = Method_class.nameEntry(sklSk, sklName);
+				if(sklSk > 0 && sklName != null)
+					maxNameLength = Method_class.nameEntry(sklSk, sklName);
+				else
+					System.out.println("Darbību nevar veikt, nav ievadīts skolēnu skaits.");
 				break;
 			case "3":
 				pdSk = Method_class.parbSk();
 				pdWg = new int[pdSk];
-				pdRez = new int[sklSk][pdSk];
+				
+				if(sklSk > 0) {
+					pdRez = new int[sklSk][pdSk];
+				}
 				
 				Method_class.smagumuIevade(pdSk, pdWg);
 				break;
 			case "4":
-				Method_class.resEntry(pdSk, sklSk, sklName, pdWg, pdRez);
+				if(sklName != null && !Arrays.stream(sklName).allMatch(Objects::isNull)
+						&& pdSk > 0 && sklSk > 0 &&
+						pdWg != null && !Arrays.stream(pdWg).allMatch(Objects::isNull))
+					Method_class.resEntry(pdSk, sklSk, sklName, pdWg, pdRez);
+				else
+					System.out.println("Darbība nevar tikt veikta, skolēnu vārdi vai smagumi nav ievadīti.");
 				break;
 			case "5":
-				Method_class.calcFin(sklSk, pdSk, pdWg, finalRez, pdRez);
-				Method_class.rezOut(maxNameLength, sklSk, pdSk, pdWg, finalRez, pdRez, sklName, df);
+				if(sklSk > 0 && pdSk > 0 && pdWg != null
+				&& !Arrays.stream(pdWg).allMatch(Objects::isNull)
+				&& pdRez != null && !Arrays.stream(pdRez).allMatch(Objects::isNull)) {
+					Method_class.calcFin(sklSk, pdSk, pdWg, finalRez, pdRez);
+					Method_class.rezOut(maxNameLength, sklSk, pdSk, pdWg, finalRez, pdRez, sklName, df);
+				}
+				else
+					System.out.println("Darbību nevar veikt, nav ievadīti kādi no datiem");
 				break;
 			case "6":
+				break;
+			case "0":
 				break;
 			default:
 				System.out.println("Kļūda");
 			}
 			
-		}while(izvele!="0");
+		}while(!izvele.equals("0"));
 		sc.close();
 	}
 
