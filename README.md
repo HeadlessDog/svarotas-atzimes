@@ -8,7 +8,7 @@ Gala rezultāti rēķināti pēc formulas:
 Gala vērt. = K(1) * S(1) + K(2) * S(2) ..., kur K(n) ir kritērija iegūtais vērtējums un S ir kritērija smagums/100.
 
 Atlikušie uzdevumi:
-[] Pārveidot visus ciklus par metodēm
-[] Pārveidot programmu lai tā strādā uz izvēlnes principa
-[] Pārvietot visas jaunās metodes jaunā klasē
-[] Pievienot datu saglabāšanas iespēju pēc rezultātu noformēšanas
+- [] Pārveidot visus ciklus par metodēm
+- [] Pārveidot programmu lai tā strādā uz izvēlnes principa
+- [] Pārvietot visas jaunās metodes jaunā klasē
+- [] Pievienot datu saglabāšanas iespēju pēc rezultātu noformēšanas
