@@ -12,3 +12,4 @@ Atlikušie uzdevumi:
 - [ ] Pārveidot programmu lai tā strādā uz izvēlnes principa
 - [ ] Pārvietot visas jaunās metodes jaunā klasē
 - [ ] Pievienot datu saglabāšanas iespēju pēc rezultātu noformēšanas
+- [ ] Pievienot datu kārtošanas funkcionalitāti
