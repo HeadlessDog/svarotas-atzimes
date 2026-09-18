@@ -28,74 +28,7 @@ public class MainClass {
 		pdWg = new int[pdSk];
 		pdRez = new int[sklSk][pdSk];
 		
-		//Visu testu smagumu ievade ar validāciju
-		int totalPercent =0;
-		for(int j=0;j<pdSk;j++) {
-			do {
-				System.out.println("Ievadiet "+(j+1)+". testa smagumu %:\n"
-						+ "(visu testu smagumam jāsummējās uz 100%)\n"
-						+ "(minmālais smagums ir 5%)\n"
-						+ "(vērtībai jābūt veselai)");
-				String tempInput = sc.next();
-				
-				int currPercent = 0;
-				if(isInteger(tempInput, 10))
-					currPercent = Integer.parseInt(tempInput);
-				
-				validInt = ((currPercent < 5 || currPercent > 100) || (pdSk > 1 && currPercent == 100)) ? false : true;
-					
-				if(!validInt)
-					System.out.println("Nedarīga vērtība!");
-				else {
-					totalPercent += currPercent;
-					pdWg[j] = currPercent;
-				}
-			}while(!validInt);
-		}
-		
-		//Summatīvo procentu pārbaudes cikls
-		while(totalPercent != 100)
-		{
-			System.out.println("Smagumi nesaskaitās uz 100, izvēlieties testu kura smagumu izmainīt.\n");
-			for(int i=0;i<pdSk;i++)
-				System.out.println((i+1)+". tests - "+pdWg[i]+"%");
-			
-			//Testa izvēle ar validāciju
-			int currTest = -1;
-			do {
-				String tempInput = sc.next();
-				
-				if(isInteger(tempInput, 10))
-					currTest = Integer.parseInt(tempInput)-1;
-				
-				validInt = (currTest < 0 || currTest > pdSk-1) ? false : true;
-					
-				if(!validInt)
-					System.out.println("Nedarīga vērtība!");
-			}while(!validInt);
-			//Jauno procentu ievadīšana ar validāciju
-			do {
-				System.out.println("Ievadiet "+(currTest+1)+". testa smagumu %:\n"
-						+ "(visu testu smagumam jāsummējās uz 100%)\n"
-						+ "(minmālais smagums ir 5%)\n"
-						+ "(vērtībai jābūt veselai)");
-				String tempInput = sc.next();
-				
-				int currPercent = 0;
-				if(isInteger(tempInput, 10))
-					currPercent = Integer.parseInt(tempInput);
-				
-				validInt = ((currPercent < 5 || currPercent > 100) || (pdSk > 1 && currPercent == 100)) ? false : true;
-					
-				if(!validInt)
-					System.out.println("Nedarīga vērtība!");
-				else {
-					totalPercent -= pdWg[currTest];
-					pdWg[currTest] = currPercent;
-					totalPercent += currPercent;
-				}
-			}while(!validInt);
-		}
+		Method_class.smagumuIevade(pdSk, pdWg);
 		//Skolēnu vārdu ievade ar blank validāciju
 		int maxNameLength =0;
 		sc.nextLine();
