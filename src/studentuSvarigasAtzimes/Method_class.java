@@ -1,5 +1,7 @@
 package studentuSvarigasAtzimes;
 
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
@@ -201,6 +203,31 @@ public class Method_class {
 				for(int j=0;j<pdSk;j++)
 					System.out.printf("%-17s", pdRez[i][j]);
 				System.out.println(df.format(finalRez[i]));
+			}
+		}
+		
+		public static void rezFails(int maxNameLength, int sklSk, int pdSk, int[] pdWg, double[] finalRez, int[][] pdRez, String[] sklName, DecimalFormat df) {
+			try{
+				PrintWriter raksta = new PrintWriter("rezultati.txt");
+				//Rezultātu izvade teksta failā
+				for(int i=0;i<maxNameLength+1;i++)
+					
+					raksta.print(" ");
+				for(int i=0;i<pdSk;i++)
+					raksta.printf("%-17s", "Tests "+(i+1)+". ("+pdWg[i]+"%) ");
+				
+				raksta.println("Gala rez.");
+				for(int i=0;i<sklSk;i++)
+				{
+					raksta.print(sklName[i]+": ");
+					for(int j=0;j<maxNameLength-sklName[i].length();j++)
+						raksta.print(" ");
+					for(int j=0;j<pdSk;j++)
+						raksta.printf("%-17s", pdRez[i][j]);
+					raksta.println(df.format(finalRez[i]));
+				}	
+			} catch (FileNotFoundException e) {
+				System.out.println("Nevarēja izveidot failu");
 			}
 		}
 		

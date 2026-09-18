@@ -68,6 +68,7 @@ public class MainClass {
 				Method_class.rezOut(maxNameLength, sklSk, pdSk, pdWg, finalRez, pdRez, sklName, df);
 				break;
 			case "6":
+				Method_class.rezFails(maxNameLength, sklSk, pdSk, pdWg, finalRez, pdRez, sklName, df);
 				break;
 			default:
 				System.out.println("Kļūda");
