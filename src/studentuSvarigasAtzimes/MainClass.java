@@ -29,9 +29,55 @@ public class MainClass {
 		int[][] pdRez;
 		double[] finalRez;
 		String[] sklName;
+		String izvele;
+		
+		boolean validInt;
+		
+		
+		do {
+			System.out.println("0 - Iziet\n"
+			+ "1 - Ievadīt skolēnu skaitu\n"
+			+ "2 - Ievadīt skolēnu vārdus\n"
+			+ "3 - Ievadīt testu skaitu un smagumu\n"
+			+ "4 - Ievadīt testu rezultātus\n"
+			+ "5 - Apskatīt gala vērtējumu\n"
+			+ "6 - Saglabāt teksta datnē");
+			
+			do {
+				izvele = sc.next();
+				
+				if(//Method_class.
+						isInteger(izvele, 10))
+					sklSk = Integer.parseInt(izvele);
+				
+				validInt = (sklSk < 1 || sklSk > 100000) ? false : true;
+					
+				if(!validInt)
+					System.out.println("Nedarīga vērtība!");
+			}while(!validInt);
+			
+			
+			switch(izvele) {
+			case "1":
+				break;
+			case "2":
+				break;
+			case "3":
+				break;
+			case "4":
+				break;
+			case "5":
+				break;
+			case "6":
+				break;
+			default:
+				System.out.println("Kļūda");
+			}
+			
+		}while(izvele!="0");
 		
 		System.out.println("Jūs esat pieslēdiez gala atzīmju kalkulatoram.\n");
-		boolean validInt;
+		
 		//Skolēnu skaita ievade ar validāciju
 		do {
 			System.out.println("Ievadiet skolēnu skaitu: ");
