@@ -35,6 +35,24 @@ public class Method_class {
 				}while(!validInt);
 				return sklSk;
 		}
+		
+		//Testu skaita ievade ar validāciju
+		public static int parbSk() {
+			int pdSk =0;
+				do {
+					System.out.println("Ievadiet pārbaudes darbu/test/eksāmenu skaitu katram skolēnam: ");
+					String tempInput = sc.next();
+					
+					if(isInteger(tempInput, 10))
+						pdSk = Integer.parseInt(tempInput);
+					
+					validInt = (pdSk < 1 || pdSk > 20) ? false : true;
+						
+					if(!validInt)
+						System.out.println("Nedarīga vērtība!");
+				}while(!validInt);
+			return pdSk;
+		}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

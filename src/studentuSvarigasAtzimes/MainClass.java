@@ -24,19 +24,7 @@ public class MainClass {
 		sklName = new String[sklSk];
 		finalRez = new double[sklSk];
 		
-		//Testu skaita ievade ar validāciju
-		do {
-			System.out.println("Ievadiet pārbaudes darbu/test/eksāmenu skaitu katram skolēnam: ");
-			String tempInput = sc.next();
-			
-			if(isInteger(tempInput, 10))
-				pdSk = Integer.parseInt(tempInput);
-			
-			validInt = (pdSk < 1 || pdSk > 20) ? false : true;
-				
-			if(!validInt)
-				System.out.println("Nedarīga vērtība!");
-		}while(!validInt);
+		pdSk = Method_class.parbSk();
 		pdWg = new int[pdSk];
 		pdRez = new int[sklSk][pdSk];
 		
