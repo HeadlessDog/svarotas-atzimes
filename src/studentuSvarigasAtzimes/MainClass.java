@@ -93,6 +93,7 @@ public class MainClass {
 					System.out.println("Darbību nevar veikt, nav ievadīti kādi no datiem");
 				break;
 			case "6":
+				Method_class.rezFails(maxNameLength, sklSk, pdSk, pdWg, finalRez, pdRez, sklName, df);
 				break;
 			case "0":
 				break;
