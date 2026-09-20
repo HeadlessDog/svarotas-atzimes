@@ -11,5 +11,5 @@ Atlikušie uzdevumi:
 - [x] Pārveidot visus ciklus par metodēm
 - [x] Pārveidot programmu lai tā strādā uz izvēlnes principa
 - [x] Pārvietot visas jaunās metodes jaunā klasē
-- [ ] Pievienot datu saglabāšanas iespēju pēc rezultātu noformēšanas
-- [ ] Pievienot datu kārtošanas funkcionalitāti
+- [x] Pievienot datu saglabāšanas iespēju pēc rezultātu noformēšanas
+- [x] Pievienot datu kārtošanas funkcionalitāti
