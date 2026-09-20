@@ -1,6 +1,7 @@
 package studentuSvarigasAtzimes;
 
 import java.io.PrintWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 public class Method_class {
@@ -215,34 +217,49 @@ public class Method_class {
 			JFileChooser choozer = new JFileChooser("c:", FileSystemView.getFileSystemView());
 			JFrame owner = new JFrame();
 			owner.setAlwaysOnTop(true);
-			
+
+			//Ļauj izvēlēties tikai .txt datnes
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Teksta datnes (*.txt)", "txt");
+			choozer.setFileFilter(filter);
+			choozer.setAcceptAllFileFilterUsed(false);
+
+
 			int opt = choozer.showSaveDialog(owner);
 			owner.dispose();
-			
+
 			if(opt == JFileChooser.APPROVE_OPTION) {
+				File izvSelFails = choozer.getSelectedFile();
+
+				//Nostrādā jebkuru ievadīto paplašinājumu un piespiedu kārtā uzliek .txt
+				String izvFailsName = izvSelFails.getName();
+				int dotIndex = izvFailsName.lastIndexOf('.');
+				String izvFailsBaseName = (dotIndex == -1) ? izvFailsName : izvFailsName.substring(0, dotIndex);
+				izvSelFails = new File(izvSelFails.getParentFile(), izvFailsBaseName+".txt");
+
 				
-				if(choozer.getSelectedFile().exists()) {
-					System.out.println("Fails jau eksistē, vai turpināt? (y/n)");
+				if(izvSelFails.exists()) {
+					System.out.println("Fails "+izvFailsBaseName+".txt jau eksistē, vai turpināt? (y/n)");
 					String tempInput = sc.nextLine();
-					
+
 					do {
-						
+
 						if(tempInput.equals("n")) return;
 						else if(!tempInput.equals("y"))
 							System.out.println("Ievadiet y- jā, n - nē");
-					
+
 					}while(!tempInput.equals("y"));
 				}
 				try{
-						PrintWriter raksta = new PrintWriter(choozer.getSelectedFile());
+						PrintWriter raksta = new PrintWriter(izvSelFails);
 						//Rezultātu izvade teksta failā
 						for(int i=0;i<maxNameLength+1;i++)
-							
 							raksta.print(" ");
+
 						for(int i=0;i<pdSk;i++)
 							raksta.printf("%-17s", "Tests "+(i+1)+". ("+pdWg[i]+"%) ");
-						
+
 						raksta.println("Gala rez.");
+						
 						for(int i=0;i<sklSk;i++)
 						{
 							raksta.print(sklName[i]+": ");
@@ -256,9 +273,11 @@ public class Method_class {
 					} catch (FileNotFoundException e) {
 						System.out.println("Nevarēja izveidot failu");
 					}
-			
+
 				}
 		}
+
+
 		
 		//Rezultātu kārtošana pēc gala rezultāta vai vārda
 		public static void sortData(int sklSk, int pdSk, double[] finalRez, int[][] pdRez, String[] sklName) {
