@@ -1,0 +1,4 @@
+       Tests 1. (60%)   Tests 2. (40%)   Gala rez.
+retrt:  5                9                6.60
+dfgfd:  10               4                7.60
+sdfsdf: 2                8                4.40

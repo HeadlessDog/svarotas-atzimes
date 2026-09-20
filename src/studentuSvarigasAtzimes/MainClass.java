@@ -1,7 +1,7 @@
 package studentuSvarigasAtzimes;
 
 import java.text.DecimalFormat;
-import studentuSvarigasAtzimes.Method_class;
+//import studentuSvarigasAtzimes.Method_class;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -32,7 +32,10 @@ public class MainClass {
 			+ "3 - Ievadīt testu skaitu un smagumu\n"
 			+ "4 - Ievadīt testu rezultātus\n"
 			+ "5 - Apskatīt gala vērtējumu\n"
-			+ "6 - Saglabāt teksta datnē");
+			+ "6 - Saglabāt teksta datnē\n"
+			+ "7 - Kārtot rezultātus");
+
+
 			
 			do {
 				int tempInt = 0;
@@ -77,24 +80,50 @@ public class MainClass {
 			case "4":
 				if(sklName != null && !Arrays.stream(sklName).allMatch(Objects::isNull)
 						&& pdSk > 0 && sklSk > 0 &&
-						pdWg != null && !Arrays.stream(pdWg).allMatch(Objects::isNull))
+						pdWg != null && !Arrays.stream(pdWg).allMatch(Objects::isNull)) {
 					Method_class.resEntry(pdSk, sklSk, sklName, pdWg, pdRez);
+					Method_class.calcFin(sklSk, pdSk, pdWg, finalRez, pdRez);
+				}
 				else
 					System.out.println("Darbība nevar tikt veikta, skolēnu vārdi vai smagumi nav ievadīti.");
 				break;
 			case "5":
-				if(sklSk > 0 && pdSk > 0 && pdWg != null
-				&& !Arrays.stream(pdWg).allMatch(Objects::isNull)
-				&& pdRez != null && !Arrays.stream(pdRez).allMatch(Objects::isNull)) {
-					Method_class.calcFin(sklSk, pdSk, pdWg, finalRez, pdRez);
+				if(sklSk > 0 && pdSk > 0
+				&& pdWg != null && !Arrays.stream(pdWg).allMatch(Objects::isNull)
+				&& pdRez != null && !Arrays.stream(pdRez).allMatch(Objects::isNull)
+				&& sklName != null && !Arrays.stream(sklName).allMatch(Objects::isNull)) {
 					Method_class.rezOut(maxNameLength, sklSk, pdSk, pdWg, finalRez, pdRez, sklName, df);
 				}
 				else
 					System.out.println("Darbību nevar veikt, nav ievadīti kādi no datiem");
 				break;
 			case "6":
-				Method_class.rezFails(maxNameLength, sklSk, pdSk, pdWg, finalRez, pdRez, sklName, df);
+				if(sklSk > 0 && pdSk > 0
+					&& pdWg != null && !Arrays.stream(pdWg).allMatch(Objects::isNull)
+					&& pdRez != null && !Arrays.stream(pdRez).allMatch(Objects::isNull)
+					&& sklName != null && !Arrays.stream(sklName).allMatch(Objects::isNull)) {
+						Method_class.rezFails(maxNameLength, sklSk, pdSk, pdWg, finalRez, pdRez, sklName, df);
+					}
+					else
+						System.out.println("Darbību nevar veikt, nav ievadīti kādi no datiem");
+				
 				break;
+			case "7":
+
+				if(sklSk > 0 && pdSk > 0
+					&& pdWg != null && !Arrays.stream(pdWg).allMatch(Objects::isNull)
+					&& pdRez != null && !Arrays.stream(pdRez).allMatch(Objects::isNull)
+					&& sklName != null && !Arrays.stream(sklName).allMatch(Objects::isNull)) {
+					
+					Method_class.sortData(sklSk, pdSk, finalRez, pdRez, sklName);
+					Method_class.rezOut(maxNameLength, sklSk, pdSk, pdWg, finalRez, pdRez, sklName, df);
+				}
+				else
+					System.out.println("Darbību nevar veikt, nav ievadīti kādi no datiem");
+
+				break;
+
+
 			case "0":
 				break;
 			default:

@@ -3,7 +3,12 @@ package studentuSvarigasAtzimes;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Scanner;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileSystemView;
 
 public class Method_class {
 	static Scanner sc = new Scanner(System.in);
@@ -207,33 +212,119 @@ public class Method_class {
 		}
 		
 		public static void rezFails(int maxNameLength, int sklSk, int pdSk, int[] pdWg, double[] finalRez, int[][] pdRez, String[] sklName, DecimalFormat df) {
-			try{
-				PrintWriter raksta = new PrintWriter("rezultati.txt");
-				//Rezultātu izvade teksta failā
-				for(int i=0;i<maxNameLength+1;i++)
-					
-					raksta.print(" ");
-				for(int i=0;i<pdSk;i++)
-					raksta.printf("%-17s", "Tests "+(i+1)+". ("+pdWg[i]+"%) ");
+			JFileChooser choozer = new JFileChooser("c:", FileSystemView.getFileSystemView());
+			JFrame owner = new JFrame();
+			owner.setAlwaysOnTop(true);
+			
+			int opt = choozer.showSaveDialog(owner);
+			owner.dispose();
+			
+			if(opt == JFileChooser.APPROVE_OPTION) {
 				
-				raksta.println("Gala rez.");
-				for(int i=0;i<sklSk;i++)
-				{
-					raksta.print(sklName[i]+": ");
-					for(int j=0;j<maxNameLength-sklName[i].length();j++)
-						raksta.print(" ");
-					for(int j=0;j<pdSk;j++)
-						raksta.printf("%-17s", pdRez[i][j]);
-					raksta.println(df.format(finalRez[i]));
-				}	
-			} catch (FileNotFoundException e) {
-				System.out.println("Nevarēja izveidot failu");
-			}
+				if(choozer.getSelectedFile().exists()) {
+					System.out.println("Fails jau eksistē, vai turpināt? (y/n)");
+					String tempInput = sc.nextLine();
+					
+					do {
+						
+						if(tempInput.equals("n")) return;
+						else if(!tempInput.equals("y"))
+							System.out.println("Ievadiet y- jā, n - nē");
+					
+					}while(!tempInput.equals("y"));
+				}
+				try{
+						PrintWriter raksta = new PrintWriter(choozer.getSelectedFile());
+						//Rezultātu izvade teksta failā
+						for(int i=0;i<maxNameLength+1;i++)
+							
+							raksta.print(" ");
+						for(int i=0;i<pdSk;i++)
+							raksta.printf("%-17s", "Tests "+(i+1)+". ("+pdWg[i]+"%) ");
+						
+						raksta.println("Gala rez.");
+						for(int i=0;i<sklSk;i++)
+						{
+							raksta.print(sklName[i]+": ");
+							for(int j=0;j<maxNameLength-sklName[i].length();j++)
+								raksta.print(" ");
+							for(int j=0;j<pdSk;j++)
+								raksta.printf("%-17s", pdRez[i][j]);
+							raksta.println(df.format(finalRez[i]));
+						}	
+						raksta.close();
+					} catch (FileNotFoundException e) {
+						System.out.println("Nevarēja izveidot failu");
+					}
+			
+				}
 		}
 		
-		public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		//Rezultātu kārtošana pēc gala rezultāta vai vārda
+		public static void sortData(int sklSk, int pdSk, double[] finalRez, int[][] pdRez, String[] sklName) {
+			System.out.println("0 - Iziet\n"
+					+ "1 - Kārtot pēc gala rezultāta augošā secībā\n"
+					+ "2 - Kārtot pēc gala rezultāta dilstošā secībā\n"
+					+ "3 - Kārtot pēc vārda alfabētiskā secībā\n"
+					+ "4 - Kārtot pēc vārda pretējā alfabētiskā secībā");
+ 
+			int izvele = -1;
+			do {
+				String tempInput = sc.nextLine();
+ 
+				if(isInteger(tempInput, 10))
+					izvele = Integer.parseInt(tempInput);
+ 
+				validInt = (izvele < 0 || izvele > 4) ? false : true;
+ 
+				if(!validInt)
+					System.out.println("Nedarīga vērtība!");
+			}while(!validInt);
+ 
+			if(izvele == 0) return;
+ 
+			//Indeksu masīvs, ko sakārtos pēc izvēlētā kritērija
+			Integer[] idx = new Integer[sklSk];
+			for(int i=0;i<sklSk;i++)
+				idx[i] = i;
+ 
+			switch(izvele) {
+			case 1:
+				Arrays.sort(idx, (a, b) -> Double.compare(finalRez[a], finalRez[b]));
+				break;
+			case 2:
+				Arrays.sort(idx, (a, b) -> Double.compare(finalRez[b], finalRez[a]));
+				break;
+			case 3:
+				Arrays.sort(idx, (a, b) -> sklName[a].compareToIgnoreCase(sklName[b]));
+				break;
+			case 4:
+				Arrays.sort(idx, (a, b) -> sklName[b].compareToIgnoreCase(sklName[a]));
+				break;
+			}
+ 
+			//Sakārtoto vērtību pagaidu masīvi
+			double[] tempFinalRez = new double[sklSk];
+			String[] tempSklName = new String[sklSk];
+			int[][] tempPdRez = new int[sklSk][pdSk];
+ 
+			for(int i=0;i<sklSk;i++) {
+				tempFinalRez[i] = finalRez[idx[i]];
+				tempSklName[i] = sklName[idx[i]];
+				tempPdRez[i] = pdRez[idx[i]];
+			}
+ 
+			//Pagaidu masīvu satura pārkopēšana atpakaļ oriģinālajos masīvos
+			for(int i=0;i<sklSk;i++) {
+				finalRez[i] = tempFinalRez[i];
+				sklName[i] = tempSklName[i];
+				pdRez[i] = tempPdRez[i];
+			}
+ 
+			System.out.println("Rezultāti sakārtoti.");
+			
+		}
 
-	}
+		
 
 }
